@@ -1,9 +1,5 @@
 # mean-starter-kit
 
-[![Build Status](https://travis-ci.org/danivek/mean-starter-kit.svg?branch=master)](https://travis-ci.org/danivek/mean-starter-kit)
-[![Coverage Status](https://coveralls.io/repos/danivek/mean-starter-kit/badge.svg?branch=master&service=github)](https://coveralls.io/github/danivek/mean-starter-kit?branch=master)
-[![Dependency Status](https://david-dm.org/danivek/mean-starter-kit.svg)](https://david-dm.org/danivek/mean-starter-kit) [![devDependency Status](https://david-dm.org/danivek/mean-starter-kit/dev-status.svg)](https://david-dm.org/danivek/mean-starter-kit#info=devDependencies)
-
 > Starter kit (seed) for MEAN stack applications - MongoDB, Express, AngularJS, NodeJS with Gulp
 
 ## Features
@@ -44,15 +40,6 @@ Docker:
   - docker-compose.yml version 2 with official MongoDb and Nginx images
   - Nginx configuration with caching
 
-**Coming soon:**
-  - **e2e tests** with [protractor](http://www.protractortest.org/#/)
-  - ...
-
-## AngularJS best practices used
-
-  - [$httpProvider.useApplyAsync(true)](http://blog.thoughtram.io/angularjs/2015/01/14/exploring-angular-1.3-speed-up-with-applyAsync.html)
-  - [$compileProvider.debugInfoEnabled(false)](https://docs.angularjs.org/guide/production)
-  - Avoid [FOUC - Flash of untranslated content](https://angular-translate.github.io/docs/#/guide/12_asynchronous-loading#asynchronous-loading_fouc---flash-of-untranslated-content) with angular-translate by adding [translate-cloak directive](https://angular-translate.github.io/docs/#/api/pascalprecht.translate.directive:translateCloak). See [commit](https://github.com/danivek/mean-starter-kit/commit/ae8099d9177e36322f97d30401ed1b81fffe222f).
 
 ## Prerequisites
 
@@ -60,11 +47,7 @@ Docker:
 
 ## Getting Started
 
-- Install: `npm install` and `bower install`
+- Install: `npm install`
 - Run: `npm start` or if you have Gulp 4 on your environnement, just run: `gulp`
 - Run tests: `npm test` or if you have Gulp 4 on your environnement, just run: `gulp test`
 - Build dist: `npm dist`
-
-## Contribute
-
-When submitting a PR, make sure that the commit messages match the [AngularJS conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/).
