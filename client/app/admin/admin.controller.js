@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	function authController($rootScope, $scope, $q, $document, $location, focus, authService) {
+	function adminController($rootScope, $scope, $q, $document, $location, focus, authService) {
 		var vm = this,
         _errors = [],
         _login = {
@@ -54,10 +54,7 @@
                     authService.loginUser(vm.login).then(function (response) {
 						debugger;
 						if (response != undefined)  {
-							if (Storage != undefined && sessionStorage != undefined) {
-								sessionStorage.setItem('logedInUser', JSON.stringify(response));
-								$location.path('/admin');
-							}
+							
 						}
 						console.log(response);
 					}, function (error) {
@@ -99,6 +96,12 @@
 				focus(id);
 			},
 			preInit: function () {
+                if (Storage != undefined && sessionStorage != undefined) {
+                    vm.user = JSON.parse(sessionStorage.getItem('logedInUser'));
+                    if(vm.user == undefined || vm.user._id == undefined || vm.user._id == '') {
+                        $location.path('/auth');
+                    }
+                }
 			},
 			activate: function () {
 				var allPromises = {};
@@ -107,7 +110,16 @@
 				}, function (error) {
 					if (typeof console != 'undefined') console.log(error);
 				});
-			}
+			},
+            signOut: function() {
+				if (Storage != undefined && sessionStorage != undefined) {
+                    vm.user = null;
+					sessionStorage.removeItem('logedInUser');
+					$location.path('/auth');
+                } else {
+					$location.path('/auth');
+				}
+            }
 		});
 
 		vm.preInit();
@@ -115,6 +127,6 @@
 			vm.activate();
 		});
 	}
-	authController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService'];
-	angular.module('app').controller('authController', authController);
+	adminController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService'];
+	angular.module('app').controller('adminController', adminController);
 })();

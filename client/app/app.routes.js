@@ -20,6 +20,12 @@
       controller: 'authController',
       controllerAs: 'vm'
     });
+    $stateProvider.state('admin', {
+      url: '/admin',
+      templateUrl: '/app/admin/admin.tpl.html',
+      controller: 'adminController',
+      controllerAs: 'vm'
+    });
 
     $urlRouterProvider.otherwise('/auth');
   }

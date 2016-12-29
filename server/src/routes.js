@@ -14,7 +14,9 @@ router.put('/api/things/:id', thing.put);
 // user ressources
 router.get('/api/users', user.find);
 router.get('/api/users/:id', user.get);
-router.post('/api/users', user.post);
+router.post('/api/auth/register', user.post);
 router.put('/api/users/:id', user.put);
+router.post('/api/auth/login', user.getByEmailAndPassword);
+router.post('/api/auth/isuserexit', user.getByEmail);
 
 module.exports = router;

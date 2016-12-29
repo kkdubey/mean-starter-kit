@@ -80,3 +80,40 @@ exports.put = function(req, res, next) {
     });
   });
 };
+
+/**
+ * GET /user/:email, passwword
+ *
+ * @description
+ * Find thing by email and passwword
+ *
+ */
+exports.getByEmailAndPassword = function(req, res, next) {
+  Thing.find({email: req.body.email, password: req.body.password}, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user || user.length == 0) {
+      return res.status(404).send('Not Found');
+    }
+    return res.status(200).json(user[0]);
+  });
+};
+/**
+ * GET /user/:email
+ *
+ * @description
+ * Find thing by email
+ *
+ */
+exports.getByEmail = function(req, res, next) {
+  Thing.find({ email: req.body.email }, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    if (!user|| user.length == 0) {
+      return res.status(404).send('Not Found');
+    }
+    return res.status(200).json(user[0]);
+  });
+};

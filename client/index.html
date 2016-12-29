@@ -20,6 +20,8 @@
   <!-- endbuild -->
   <!-- build:css(client) styles/app.css -->
   <link rel="stylesheet" href="styles/app.css">
+  <link rel="stylesheet" href="styles/sb-admin-2.css">
+  <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.css">
   <!-- endbuild -->
 </head>
 
@@ -49,12 +51,51 @@
   <script src="../node_modules/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
   <script src="../node_modules/jquery/dist/jquery.js"></script>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="metisMenu/metisMenu.js"></script>
   <!-- endbuild -->
   <!-- build:js({client,.tmp/}) scripts/app.js -->
   <!-- inject:js -->
   <!-- app scripts will go here... -->
   <!-- endinject -->
   <!-- endbuild -->
+  <script>
+    $(document).ready(function() { 
+        $('#side-menu').metisMenu();
+        $(window).bind("load resize", function() {
+            var topOffset = 50;
+            var width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+            if (width < 768) {
+                $('div.navbar-collapse').addClass('collapse');
+                topOffset = 100; // 2-row-menu
+            } else {
+                $('div.navbar-collapse').removeClass('collapse');
+            }
+
+            var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
+            height = height - topOffset;
+            if (height < 1) height = 1;
+            if (height > topOffset) {
+                $("#page-wrapper").css("min-height", (height) + "px");
+            }
+        });
+
+        var url = window.location;
+        // var element = $('ul.nav a').filter(function() {
+        //     return this.href == url;
+        // }).addClass('active').parent().parent().addClass('in').parent();
+        var element = $('ul.nav a').filter(function() {
+            return this.href == url;
+        }).addClass('active').parent();
+
+        while (true) {
+            if (element.is('li')) {
+                element = element.parent().addClass('in').parent();
+            } else {
+                break;
+            }
+        }
+    });
+  </script>
 </body>
 
 </html>
