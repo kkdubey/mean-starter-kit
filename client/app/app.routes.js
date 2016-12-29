@@ -14,6 +14,13 @@
       template: '<main></main>'
     });
 
-    $urlRouterProvider.otherwise('/');
+    $stateProvider.state('auth', {
+      url: '/auth',
+      templateUrl: '/app/auth/auth.tpl.html',
+      controller: 'authController',
+      controllerAs: 'vm'
+    });
+
+    $urlRouterProvider.otherwise('/auth');
   }
 })();
