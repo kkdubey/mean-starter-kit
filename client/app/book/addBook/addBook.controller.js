@@ -69,7 +69,6 @@
                         $location.path('/auth');
                     }
                 }
-				$('#side-menu').metisMenu();
 			},
 			activate: function () {
 				var allPromises = {};

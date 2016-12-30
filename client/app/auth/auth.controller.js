@@ -36,7 +36,7 @@
             registerUser: function() {
                 vm.validateRegister();
                 if(vm.Errors.length == 0) {
-                    vm.user.userType = "NORMAL"
+                    vm.user.userType = "STANDARD"
                     authService.registerUser(vm.user).then(function (response) {
 						debugger;
 						if (response != undefined)  {
