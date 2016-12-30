@@ -4,15 +4,15 @@
         'apiHelper',
         function (apiHelper) {
         	return {
-        		registerUser: _registerUser,
+        		getAllUsers: _getAllUsers,
         		loginUser: _loginUser
         	};
 
-        	function _registerUser(user) {
-        		var url = '/api/auth/register',
+        	function _getAllUsers(user) {
+        		var url = '/api/users',
                     config = { headers: {} },
 	                postdata = user;
-        		return apiHelper.post(url, postdata, config);
+        		return apiHelper.get(url, postdata, config);
         	}
 
         	function _loginUser(user) {

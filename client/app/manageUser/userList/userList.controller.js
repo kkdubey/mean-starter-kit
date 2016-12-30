@@ -1,12 +1,20 @@
 (function () {
 	'use strict';
 
-	function userListController($rootScope, $scope, $q, $document, $location, focus, authService) {
+	function userListController($rootScope, $scope, $q, $document, $location, focus, authService, userListService) {
 		var vm = this,
         _errors = [],
-        _login = {
-            email: null,
-            password: null
+        _userGridOptions = {
+			enableSorting: true,
+			columnDefs: [
+				{ field: 'name' },
+				{ field: 'email' },
+				{ field: 'phoneNumber' },
+				{ field: 'userType' }
+			],
+			onRegisterApi: function( gridApi ) {
+				vm.grid1Api = gridApi;
+			}
         },
         _user = {
             name: null,
@@ -18,9 +26,8 @@
 		/* members */
 		angular.extend(vm, {
             Errors: _errors,
-            LoginErrors : _errors,
-            login: _login,
-            user: _user
+            user: _user,
+			userGridOptions: _userGridOptions
         });
 
 		/* lookup members */
@@ -39,7 +46,10 @@
 			activate: function () {
 				var allPromises = {};
 
+                allPromises['getUsersPromise'] = userListService.getAllUsers();
+
 				$q.all(allPromises).then(function (response) {
+                    vm.userGridOptions.data = response.getUsersPromise ? response.getUsersPromise : [];
 				}, function (error) {
 					if (typeof console != 'undefined') console.log(error);
 				});
@@ -47,10 +57,8 @@
 		});
 
 		vm.preInit();
-		$scope.$on('$routeChangeSuccess', function (event, current, previous) {
-			vm.activate();
-		});
+		vm.activate();
 	}
-	userListController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService'];
+	userListController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService', 'userListService'];
 	angular.module('app').controller('userListController', userListController);
 })();

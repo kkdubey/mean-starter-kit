@@ -34,6 +34,7 @@
 						if (response != undefined)  {
 							vm.showSuccess = true;
 							vm.successMsg = "User added successfuly."
+							//$location.path("/#/dashboard/user/list");
 						}
 					}, function (error) {
 						debugger;
