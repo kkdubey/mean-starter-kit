@@ -1,15 +1,15 @@
 (function () {
 	'use strict';
 
-	angular.module("app").factory('apiHelper', ['$http', '$q', '$location', function ($http, $q, $location) {
+	angular.module("app").factory('apiHelper', ['$http', '$q', function ($http, $q) {
 		function processRequest(verb, uri, data, config) {
 			var deferred = $q.defer(),
                 httpArgs = [uri],
                 defaultHeaders = {
-                	'Accept': 'application/json',
-                	'Accept-Language': 'en-US',
-                	'Content-Type': 'application/json',
-                	'Cache-Control': 'no-cache'
+					'Accept': 'application/json',
+					'Accept-Language': 'en-US',
+					'Content-Type': 'application/json',
+					'Cache-Control': 'no-cache'
                 };
 
 			var _config = {};
@@ -33,12 +33,12 @@
 			$http[verb].apply(null, httpArgs)
                 .success(function (data, status, header, config) { deferred.resolve(data); })
                 .error(function (data, status, header, config) {
-                	deferred.reject(data);
+					deferred.reject(data);
                 })
-                ['finally'](function () { });
+                ['finally'](function () { }); // disable eslint
 
 			return deferred.promise;
-		};
+		}
 
 		return {
 			get: function (uri, config) {

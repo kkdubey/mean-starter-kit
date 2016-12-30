@@ -52,11 +52,10 @@
                 vm.validateLogin();
                 if(vm.Errors.length == 0) {
                     authService.loginUser(vm.login).then(function (response) {
-						debugger;
 						if (response != undefined)  {
 							if (Storage != undefined && sessionStorage != undefined) {
 								sessionStorage.setItem('logedInUser', JSON.stringify(response));
-								$location.path('/admin');
+								$location.path('/dashboard');
 							}
 						}
 						console.log(response);

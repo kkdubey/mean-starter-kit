@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module("app").factory('adminService', [
+	angular.module("app").factory('dashboardService', [
         'apiHelper',
         function (apiHelper) {
         	return {

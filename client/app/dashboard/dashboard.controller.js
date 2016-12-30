@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	function adminController($rootScope, $scope, $q, $document, $location, focus, authService) {
+	function dashboardController($rootScope, $scope, $q, $document, $location, focus, authService) {
 		var vm = this,
         _errors = [],
         _login = {
@@ -102,6 +102,7 @@
                         $location.path('/auth');
                     }
                 }
+				$('#side-menu').metisMenu();
 			},
 			activate: function () {
 				var allPromises = {};
@@ -127,6 +128,6 @@
 			vm.activate();
 		});
 	}
-	adminController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService'];
-	angular.module('app').controller('adminController', adminController);
+	dashboardController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService'];
+	angular.module('app').controller('dashboardController', dashboardController);
 })();

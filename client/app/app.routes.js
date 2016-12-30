@@ -20,10 +20,10 @@
       controller: 'authController',
       controllerAs: 'vm'
     });
-    $stateProvider.state('admin', {
-      url: '/admin',
-      templateUrl: '/app/admin/admin.tpl.html',
-      controller: 'adminController',
+    $stateProvider.state('dashboard', {
+      url: '/dashboard',
+      templateUrl: '/app/dashboard/dashboard.tpl.html',
+      controller: 'dashboardController',
       controllerAs: 'vm'
     });
 
