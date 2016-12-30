@@ -26,7 +26,16 @@
       controller: 'dashboardController',
       controllerAs: 'vm'
     });
-
+    $stateProvider.state('dashboard.bookList', {
+        url: '/book/list',
+        templateUrl: 'app/book/bookList/bookList.tpl.html',
+        controller: 'bookListController'
+    });
+    $stateProvider.state('dashboard.addBook', {
+        url: '/book/add',
+        templateUrl: 'app/book/addBook/addBook.tpl.html',
+        controller: 'addBookController'
+    });
     $urlRouterProvider.otherwise('/auth');
   }
 })();
