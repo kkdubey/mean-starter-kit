@@ -4,24 +4,14 @@
         'apiHelper',
         function (apiHelper) {
         	return {
-        		registerUser: _registerUser,
-        		loginUser: _loginUser
+        		addBook: _addBook
         	};
-
-        	function _registerUser(user) {
-        		var url = '/api/auth/register',
-                    config = { headers: {} },
-	                postdata = user;
-        		return apiHelper.post(url, postdata, config);
-        	}
-
-        	function _loginUser(user) {
-        		var url = '/api/auth/login',
-                    config = { headers: {} },
-	                postdata = user;
-        		return apiHelper.post(url, postdata, config);
-        	}
-
-        }
+		function _addBook(book) {
+			var url = '/api/books',
+			config = { headers: {} },
+			postdata = book;
+			return apiHelper.post(url, postdata, config);
+		}
+	}
 	]);
 })();

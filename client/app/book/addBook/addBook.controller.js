@@ -1,14 +1,14 @@
 (function () {
 	'use strict';
 
-	function addBookController($rootScope, $scope, $q, $document, $location, focus) {
+	function addBookController($rootScope, $scope, $q, $document, $location, focus, addBookService) {
 		var vm = this,
         _errors = [],
         _book = {
             name: null,
-            phoneNumber: null,
-            email: null,
-            password: null,
+            author: null,
+            noOfTotalBooks: null,
+			noOfAvailableBooks: null,
         };
 
 		/* members */
@@ -22,6 +22,39 @@
 
 		/* functions */
 		angular.extend(vm, {
+            addBook: function() {
+                vm.validateBook();
+                if(vm.Errors.length == 0) {
+					vm.book.noOfAvailableBooks = vm.book.noOfTotalBooks;
+                    addBookService.addBook(vm.book).then(function (response) {
+						if (response != undefined)  {
+							vm.showSuccess = true;
+							vm.successMsg = "User added successfuly."
+							//$location.path("/#/dashboard/user/list");
+						}
+					}, function (error) {
+						debugger;
+					});
+                }
+            },
+            validateBook: function() {
+                vm.Errors = [];
+                if (vm.book.name == undefined || vm.book.name == '') {
+					var error = { id: 'name', text: 'Please enter Book Name' };
+					vm.Errors.push(error);
+				}
+				if (vm.book.author == undefined || vm.book.author == '') {
+					var error = { id: 'author', text: 'Please enter author' };
+					vm.Errors.push(error);
+				}
+				if (vm.book.noOfTotalBooks == undefined || vm.book.noOfTotalBooks == '') {
+					var error = { id: 'noOfTotalBooks', text: 'Please enter No Of Total Books' };
+					vm.Errors.push(error);
+				}
+            },
+			goToElement: function (id) {
+				focus(id);
+			},
 			preInit: function () {
                 if (Storage != undefined && sessionStorage != undefined) {
                     vm.user = JSON.parse(sessionStorage.getItem('logedInUser'));
@@ -45,6 +78,6 @@
 			vm.activate();
 		});
 	}
-	addBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus'];
+	addBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'addBookService'];
 	angular.module('app').controller('addBookController', addBookController);
 })();

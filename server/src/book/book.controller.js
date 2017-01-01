@@ -45,6 +45,7 @@ exports.get = function(req, res, next) {
  *
  */
 exports.post = function(req, res, next) {
+  console.log(req.body);
   Book.create(req.body, function(err, book) {
     if (err) {
       return next(err);
