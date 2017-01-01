@@ -1,14 +1,10 @@
 (function () {
 	'use strict';
 
-	function addBookController($rootScope, $scope, $q, $document, $location, focus, authService) {
+	function addBookController($rootScope, $scope, $q, $document, $location, focus) {
 		var vm = this,
         _errors = [],
-        _login = {
-            email: null,
-            password: null
-        },
-        _user = {
+        _book = {
             name: null,
             phoneNumber: null,
             email: null,
@@ -18,9 +14,7 @@
 		/* members */
 		angular.extend(vm, {
             Errors: _errors,
-            LoginErrors : _errors,
-            login: _login,
-            user: _user
+            book: _book
         });
 
 		/* lookup members */
@@ -28,40 +22,6 @@
 
 		/* functions */
 		angular.extend(vm, {
-            toggleForm: function() {
-                vm.Errors = [];
-                vm.LoginErrors = [];
-                $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-            },
-            registerUser: function() {
-                vm.validateRegister();
-                if(vm.Errors.length == 0) {
-                    vm.user.userType = "NORMAL"
-                    authService.registerUser(vm.user).then(function (response) {
-						debugger;
-						if (response != undefined)  {
-							
-						}
-						console.log(response);
-					}, function (error) {
-						debugger;
-					});
-                }
-            },
-            loginUser: function() {
-                vm.validateLogin();
-                if(vm.Errors.length == 0) {
-                    authService.loginUser(vm.login).then(function (response) {
-						debugger;
-						if (response != undefined)  {
-							
-						}
-						console.log(response);
-					}, function (error) {
-						debugger;
-					});
-                }
-            },
 			preInit: function () {
                 if (Storage != undefined && sessionStorage != undefined) {
                     vm.user = JSON.parse(sessionStorage.getItem('logedInUser'));
@@ -85,6 +45,6 @@
 			vm.activate();
 		});
 	}
-	addBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService'];
+	addBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus'];
 	angular.module('app').controller('addBookController', addBookController);
 })();

@@ -12,7 +12,11 @@ var BookSchema = new Schema({
         type: String,
         required: true,
     },
-    noOfBooks: {
+    noOfTotalBooks: {
+        type: Number,
+        required: true,
+    },
+    noOfAvailableBooks: {
         type: Number,
         required: true,
     },

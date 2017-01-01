@@ -1,12 +1,20 @@
 (function () {
 	'use strict';
 
-	function bookListController($rootScope, $scope, $q, $document, $location, focus, authService) {
+	function bookListController($rootScope, $scope, $q, $document, $location, focus, authService, bookListService) {
 		var vm = this,
         _errors = [],
-        _login = {
-            email: null,
-            password: null
+        _bookGridOptions = {
+			enableSorting: true,
+			columnDefs: [
+				{ field: 'name' },
+				{ field: 'author' },
+				{ field: 'noOfTotalBooks' },
+				{ field: 'noOfAvailableBooks' }
+			],
+			onRegisterApi: function( gridApi ) {
+				vm.grid1Api = gridApi;
+			}
         },
         _user = {
             name: null,
@@ -18,9 +26,8 @@
 		/* members */
 		angular.extend(vm, {
             Errors: _errors,
-            LoginErrors : _errors,
-            login: _login,
-            user: _user
+            user: _user,
+			bookGridOptions: _bookGridOptions
         });
 
 		/* lookup members */
@@ -28,40 +35,6 @@
 
 		/* functions */
 		angular.extend(vm, {
-            toggleForm: function() {
-                vm.Errors = [];
-                vm.LoginErrors = [];
-                $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-            },
-            registerUser: function() {
-                vm.validateRegister();
-                if(vm.Errors.length == 0) {
-                    vm.user.userType = "NORMAL"
-                    authService.registerUser(vm.user).then(function (response) {
-						debugger;
-						if (response != undefined)  {
-							
-						}
-						console.log(response);
-					}, function (error) {
-						debugger;
-					});
-                }
-            },
-            loginUser: function() {
-                vm.validateLogin();
-                if(vm.Errors.length == 0) {
-                    authService.loginUser(vm.login).then(function (response) {
-						debugger;
-						if (response != undefined)  {
-							
-						}
-						console.log(response);
-					}, function (error) {
-						debugger;
-					});
-                }
-            },
 			preInit: function () {
                 if (Storage != undefined && sessionStorage != undefined) {
                     vm.user = JSON.parse(sessionStorage.getItem('logedInUser'));
@@ -69,12 +42,14 @@
                         $location.path('/auth');
                     }
                 }
-				$('#side-menu').metisMenu();
 			},
 			activate: function () {
 				var allPromises = {};
 
+                allPromises['getBooksPromise'] = bookListService.getAllBooks();
+
 				$q.all(allPromises).then(function (response) {
+                    vm.bookGridOptions.data = response.getBooksPromise ? response.getBooksPromise : [];
 				}, function (error) {
 					if (typeof console != 'undefined') console.log(error);
 				});
@@ -82,10 +57,8 @@
 		});
 
 		vm.preInit();
-		$scope.$on('$routeChangeSuccess', function (event, current, previous) {
-			vm.activate();
-		});
+		vm.activate();
 	}
-	bookListController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService'];
+	bookListController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'authService', 'bookListService'];
 	angular.module('app').controller('bookListController', bookListController);
 })();
