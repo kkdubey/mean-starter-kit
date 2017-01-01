@@ -50,6 +50,18 @@
         controller: 'addUserController',
         controllerAs: 'vm'
     });
+    $stateProvider.state('dashboard.issueBook', {
+        url: '/user/add',
+        templateUrl: 'app/manageUser/addUser/addUser.tpl.html',
+        controller: 'addUserController',
+        controllerAs: 'vm'
+    });
+    $stateProvider.state('dashboard.returnBook', {
+        url: '/user/add',
+        templateUrl: 'app/manageUser/addUser/addUser.tpl.html',
+        controller: 'addUserController',
+        controllerAs: 'vm'
+    });
     $urlRouterProvider.otherwise('/auth');
   }
 })();
