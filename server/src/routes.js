@@ -7,6 +7,7 @@ var thing = require('./thing/thing.controller');
 var user = require('./user/user.controller');
 var book = require('./book/book.controller');
 var transaction = require('./manageBook/transaction.controller');
+var transactionHistory = require('./manageBook/transactionHistory.controller');
 
 // things ressources
 router.get('/api/things', thing.find);
@@ -33,5 +34,6 @@ router.get('/api/transactions', transaction.find);
 router.get('/api/transactions/:id', transaction.get);
 router.post('/api/transactions', transaction.post);
 router.post('/api/returnBook', transaction.returnBook);
+router.get('/api/getTransactionByTransactionType', transaction.getTransactionByTransactionType);
 
 module.exports = router;
