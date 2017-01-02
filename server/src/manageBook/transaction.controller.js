@@ -1,6 +1,8 @@
 'use strict';
 
 var Transaction = require('./transaction.model');
+var User = require('../user/user.model');
+var Book = require('../book/book.model');
 
 /**
  * GET /Transactions
@@ -50,6 +52,39 @@ exports.post = function(req, res, next) {
     if (err) {
       return next(err);
     }
+    
+    User.findById(req.body.user._id, function(err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.status(404).send('Not Found');
+      }
+
+      user.books.push(req.body.book);
+
+      user.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+      });
+    });
+    Book.findById(req.body.book._id, function(err, book) {
+      if (err) {
+        return next(err);
+      }
+      if (!book) {
+        return res.status(404).send('Not Found');
+      }
+
+      book.noOfAvailableBooks = book.noOfAvailableBooks -1;
+
+      book.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+      });
+    });
     return res.status(201).json(transaction);
   });
 };

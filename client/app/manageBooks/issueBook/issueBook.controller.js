@@ -4,23 +4,20 @@
 	function issueBookController($rootScope, $scope, $q, $document, $location, focus, issueBookService, bookListService) {
 		var vm = this,
         _errors = [],
-		_issueBook = {
-			user: {},
+		_issueBooks = {
+			dueDate: null,
+			transactionDate: null,
+			transactionType: null,
+			user: null,
+			book: null,
 		},
 		_users = [],
-		_books = [],
-        _book = {
-            name: null,
-            author: null,
-            noOfTotalBooks: null,
-			noOfAvailableBooks: null,
-        };
+		_books = [];
 
 		/* members */
 		angular.extend(vm, {
             Errors: _errors,
-            book: _book,
-			issueBook: _issueBook,
+			issueBooks: _issueBooks,
 			users: _users,
 			books: _books
         });
@@ -31,13 +28,14 @@
 		/* functions */
 		angular.extend(vm, {
             issueBook: function() {
-                vm.validateBook();
+                vm.validateIssueBook();
                 if(vm.Errors.length == 0) {
-					vm.book.noOfAvailableBooks = vm.book.noOfTotalBooks;
-                    issueBookService.addBook(vm.book).then(function (response) {
+					vm.issueBooks.transactionDate = new Date();
+					vm.issueBooks.transactionType = "BORROW";
+                    issueBookService.issueBook(vm.issueBooks).then(function (response) {
 						if (response != undefined)  {
 							vm.showSuccess = true;
-							vm.successMsg = "User added successfuly."
+							vm.successMsg = "Book issued successfuly."
 							//$location.path("/#/dashboard/user/list");
 						}
 					}, function (error) {
@@ -45,18 +43,19 @@
 					});
                 }
             },
-            validateBook: function() {
+            validateIssueBook: function() {
                 vm.Errors = [];
-                if (vm.book.name == undefined || vm.book.name == '') {
-					var error = { id: 'name', text: 'Please enter Book Name' };
+				var error = {};
+                if (vm.issueBooks.user == undefined || vm.issueBooks.user == '') {
+					error = { id: 'bookUser', text: 'Please select user' };
 					vm.Errors.push(error);
 				}
-				if (vm.book.author == undefined || vm.book.author == '') {
-					var error = { id: 'author', text: 'Please enter author' };
+				if (vm.issueBooks.book == undefined || vm.issueBooks.book == '') {
+					error = { id: 'book', text: 'Please select book' };
 					vm.Errors.push(error);
 				}
-				if (vm.book.noOfTotalBooks == undefined || vm.book.noOfTotalBooks == '') {
-					var error = { id: 'noOfTotalBooks', text: 'Please enter No Of Total Books' };
+				if (vm.issueBooks.dueDate == undefined || vm.issueBooks.dueDate == '') {
+					error = { id: 'dueDate', text: 'Please enter Due Date' };
 					vm.Errors.push(error);
 				}
             },

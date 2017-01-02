@@ -21,7 +21,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="form-group">
                     <label for="name">User</label>
-                    <select name="bookUser" id="bookUser" tabindex="1" class="form-control" data-ng-model="vm.issueBook.user" data-ng-options="user.name for user in vm.users">
+                    <select name="bookUser" id="bookUser" tabindex="1" class="form-control" data-ng-model="vm.issueBooks.user" data-ng-options="user.name for user in vm.users">
                         <option value="">Select</option>
                     </select>
                 </div>
@@ -29,7 +29,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="form-group">
                     <label for="book">Book</label>
-                    <select name="book" id="book" tabindex="2" class="form-control" data-ng-model="vm.issueBook.book" data-ng-options="book.name for book in vm.books">
+                    <select name="book" id="book" tabindex="2" class="form-control" data-ng-model="vm.issueBooks.book" data-ng-options="book.name for book in vm.books">
                         <option value="">Select</option>
                     </select>
                 </div>
@@ -37,11 +37,11 @@
             <div class="col-lg-6 col-md-12">
                 <div class="form-group">
                     <label for="dueDate">Due Date</label>
-                    <input type="date" name="dueDate" id="dueDate" tabindex="2" data-ng-model="vm.issueBook.dueDate" class="form-control" placeholder="Due Date of Book" value="" autocomplete="off">
+                    <input type="date" name="dueDate" id="dueDate" tabindex="2" data-ng-model="vm.issueBooks.dueDate" class="form-control" placeholder="Due Date of Book" value="" autocomplete="off">
                 </div>
             </div>
             <div class="col-lg-6 col-lg-offset-3">
-                <input type="button" name="register-submit" id="register-submit" data-ng-click="vm.addBook()" tabindex="11" class="form-control btn btn-success" value="Add">
+                <input type="button" name="register-submit" id="register-submit" data-ng-click="vm.issueBook()" tabindex="11" class="form-control btn btn-success" value="Add">
             </div>
         </div>
     </div>

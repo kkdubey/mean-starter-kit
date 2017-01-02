@@ -126,9 +126,7 @@ exports.getByEmail = function(req, res, next) {
  *
  */
 exports.getNormalUsers = function(req, res, next) {
-  console.log(req);
   User.find({ userType: "STANDARD" }, function(err, users) {
-    console.log(err, users);
     if (err) {
       return next(err);
     }

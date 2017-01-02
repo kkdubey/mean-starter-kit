@@ -18,11 +18,9 @@ var TransactionSchema = new Schema({
     },
     user: {
         type: Schema.Types.Mixed,
-        required: true,
     },
     books: {
         type: Schema.Types.Mixed,
-        required: true,
     }
 });
 
