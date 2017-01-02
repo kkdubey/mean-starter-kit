@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	function issueBookController($rootScope, $scope, $q, $document, $location, focus, issueBookService, bookListService) {
+	function issueBookController($rootScope, $scope, $q, $document, $location, focus, issueBookService, bookListService, $filter) {
 		var vm = this,
         _errors = [],
 		_issueBooks = {
@@ -58,7 +58,19 @@
 					error = { id: 'dueDate', text: 'Please enter Due Date' };
 					vm.Errors.push(error);
 				}
+				if(vm.issueBooks.book.noOfAvailableBooks <= 0) {
+					error = { id: 'book', text: 'Selected Book are not available please select other book' };
+					vm.Errors.push(error);
+				} 
+				if(vm.issueBooks.user != undefined && vm.issueBooks.user.books.length > 0) {
+					var isAlreadyBorrowed = $filter('objectFilterByProperty')(vm.issueBooks.user.books, '_id', vm.issueBooks.book._id)[0];
+					if(isAlreadyBorrowed) {
+						error = { id: 'book', text: 'Selected Book is already borrowd by user' };
+						vm.Errors.push(error);
+					}
+				}
             },
+
 			goToElement: function (id) {
 				focus(id);
 			},
@@ -88,6 +100,6 @@
 		vm.preInit();
 		vm.activate();
 	}
-	issueBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'issueBookService', 'bookListService'];
+	issueBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'issueBookService', 'bookListService', '$filter'];
 	angular.module('app').controller('issueBookController', issueBookController);
 })();
