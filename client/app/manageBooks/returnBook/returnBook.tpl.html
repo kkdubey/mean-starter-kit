@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Issue Book</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12 registerdiv">
+        <div class="alert alert-success" role="alert" data-ng-show="vm.showSuccess">{{vm.successMsg}}</div>
+        <div class="alert alert-danger" role="alert" data-ng-show="vm.registerServerError != '' && vm.registerServerError != null">
+            {{vm.registerServerError}}
+        </div>
+        <div class="errorMsg wrap" data-ng-show="vm.Errors.length > 0">
+            <b>Missing following Required Fields:</b>
+        </div>
+        <div class="wrap errorMsg" data-ng-repeat="error in vm.Errors">
+            <a href="" class="errorMsg" data-ng-click="vm.goToElement(error.id)">{{error.text}}</a>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="form-group">
+                    <label for="name">User</label>
+                    <select name="bookUser" id="bookUser" tabindex="1" class="form-control" data-ng-model="vm.returnBooks.user" data-ng-options="user.name for user in vm.users">
+                        <option value="">Select</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="form-group">
+                    <label for="book">Book</label>
+                    <select name="book" id="book" tabindex="2" class="form-control" data-ng-model="vm.returnBooks.book" data-ng-options="book.name for book in vm.books">
+                        <option value="">Select</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-lg-offset-3">
+                <input type="button" name="register-submit" id="register-submit" data-ng-click="vm.returnBook()" tabindex="11" class="form-control btn btn-success" value="Add">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.row -->

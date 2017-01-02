@@ -10,7 +10,6 @@ var TransactionSchema = new Schema({
     },
     dueDate: {
         type: Date,
-        required: true,
     },
     transactionType: {
         type: String,
@@ -21,7 +20,10 @@ var TransactionSchema = new Schema({
     },
     books: {
         type: Schema.Types.Mixed,
-    }
+    },
+    returnDate: {
+        type: Date,
+    },
 });
 
 module.exports = mongoose.model('Transaction', TransactionSchema);
