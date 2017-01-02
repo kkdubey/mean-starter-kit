@@ -32,5 +32,6 @@ router.put('/api/books/:id', book.put);
 router.get('/api/transactions', transaction.find);
 router.get('/api/transactions/:id', transaction.get);
 router.post('/api/transactions', transaction.post);
+router.post('/api/returnBook', transaction.returnBook);
 
 module.exports = router;

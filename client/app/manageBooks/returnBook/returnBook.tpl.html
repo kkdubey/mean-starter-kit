@@ -21,7 +21,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="form-group">
                     <label for="name">User</label>
-                    <select name="bookUser" id="bookUser" tabindex="1" class="form-control" data-ng-model="vm.returnBooks.user" data-ng-options="user.name for user in vm.users">
+                    <select name="bookUser" id="bookUser" tabindex="1" class="form-control" data-ng-click="vm.onUserChange()" data-ng-model="vm.returnBooks.user" data-ng-options="user.name for user in vm.users">
                         <option value="">Select</option>
                     </select>
                 </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-lg-offset-3">
-                <input type="button" name="register-submit" id="register-submit" data-ng-click="vm.returnBook()" tabindex="11" class="form-control btn btn-success" value="Add">
+                <input type="button" name="register-submit" id="register-submit" data-ng-click="vm.returnBook()" tabindex="11" class="form-control btn btn-success" value="Return Book">
             </div>
         </div>
     </div>

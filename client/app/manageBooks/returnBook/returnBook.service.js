@@ -8,7 +8,7 @@
 				getNormalUsers: _getNormalUsers
                 };
 		function _returnBook(book) {
-			var url = '/api/transactions',
+			var url = '/api/returnBook',
 			config = { headers: {} },
 			postdata = book;
 			return apiHelper.post(url, postdata, config);

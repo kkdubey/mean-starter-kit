@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	function returnBookController($rootScope, $scope, $q, $document, $location, focus, issueBookService, bookListService, $filter) {
+	function returnBookController($rootScope, $scope, $q, $document, $location, focus, returnBookService) {
 		var vm = this,
         _errors = [],
 		_returnBooks = {
@@ -18,25 +18,37 @@
 		/* members */
 		angular.extend(vm, {
             Errors: _errors,
-			issueBooks: _returnBooks,
+			returnBooks: _returnBooks,
 			users: _users,
 			books: _books
         });
 
 		/* lookup members */
-		angular.extend(vm, {});
+		angular.extend(vm, {
+			getBookBorrowedByUser: function() {
+
+			}
+		});
 
 		/* functions */
 		angular.extend(vm, {
-            issueBook: function() {
-                vm.validateIssueBook();
+			onUserChange: function() {
+				if(vm.returnBooks.user != undefined && vm.returnBooks.user.books !=undefined) {
+					vm.books = vm.returnBooks.user.books;
+				} else {
+					vm.books = [];
+				}
+			},
+            returnBook: function() {
+                vm.validateReturnBook();
                 if(vm.Errors.length == 0) {
-					vm.issueBooks.transactionDate = new Date();
-					vm.issueBooks.transactionType = "BORROW";
-                    issueBookService.issueBook(vm.issueBooks).then(function (response) {
+					vm.returnBooks.transactionDate = new Date();
+					vm.returnBooks.transactionType = "RETURN";
+					vm.returnBooks.returnDate = new Date();
+                    returnBookService.returnBook(vm.returnBooks).then(function (response) {
 						if (response != undefined)  {
 							vm.showSuccess = true;
-							vm.successMsg = "Book issued successfuly."
+							vm.successMsg = "Book returned successfuly."
 							//$location.path("/#/dashboard/user/list");
 						}
 					}, function (error) {
@@ -44,31 +56,16 @@
 					});
                 }
             },
-            validateIssueBook: function() {
+            validateReturnBook: function() {
                 vm.Errors = [];
 				var error = {};
-                if (vm.issueBooks.user == undefined || vm.issueBooks.user == '') {
+                if (vm.returnBooks.user == undefined || vm.returnBooks.user == '') {
 					error = { id: 'bookUser', text: 'Please select user' };
 					vm.Errors.push(error);
 				}
-				if (vm.issueBooks.book == undefined || vm.issueBooks.book == '') {
+				if (vm.returnBooks.book == undefined || vm.returnBooks.book == '') {
 					error = { id: 'book', text: 'Please select book' };
 					vm.Errors.push(error);
-				}
-				if (vm.issueBooks.dueDate == undefined || vm.issueBooks.dueDate == '') {
-					error = { id: 'dueDate', text: 'Please enter Due Date' };
-					vm.Errors.push(error);
-				}
-				if(vm.issueBooks.book.noOfAvailableBooks <= 0) {
-					error = { id: 'book', text: 'Selected Book are not available please select other book' };
-					vm.Errors.push(error);
-				} 
-				if(vm.issueBooks.user != undefined && vm.issueBooks.user.books.length > 0) {
-					var isAlreadyBorrowed = $filter('objectFilterByProperty')(vm.issueBooks.user.books, '_id', vm.issueBooks.book._id)[0];
-					if(isAlreadyBorrowed) {
-						error = { id: 'book', text: 'Selected Book is already borrowd by user' };
-						vm.Errors.push(error);
-					}
 				}
             },
 
@@ -86,12 +83,10 @@
 			activate: function () {
 				var allPromises = {};
 
-                allPromises['getUsersPromise'] = issueBookService.getNormalUsers();
-                allPromises['getBooksPromise'] = bookListService.getAllBooks();
+                allPromises['getUsersPromise'] = returnBookService.getNormalUsers();
 
 				$q.all(allPromises).then(function (response) {
                     vm.users = response.getUsersPromise ? response.getUsersPromise : [];
-                    vm.books = response.getBooksPromise ? response.getBooksPromise : [];
 				}, function (error) {
 					if (typeof console != 'undefined') console.log(error);
 				});
@@ -101,6 +96,6 @@
 		vm.preInit();
 		vm.activate();
 	}
-	returnBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'issueBookService', 'bookListService', '$filter'];
+	returnBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'returnBookService'];
 	angular.module('app').controller('returnBookController', returnBookController);
 })();

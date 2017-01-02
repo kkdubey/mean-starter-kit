@@ -40,10 +40,10 @@ exports.get = function(req, res, next) {
 };
 
 /**
- * POST /Transactions
+ * POST /Transactions: borrow book
  *
  * @description
- * Create a new transaction
+ * Create a new transaction borrow book
  *
  */
 exports.post = function(req, res, next) {
@@ -90,4 +90,50 @@ exports.post = function(req, res, next) {
 };
 
 
+/**
+ * POST /transactions: return book
+ *
+ * @description
+ * Create a new transaction return book
+ *
+ */
 
+exports.returnBook = function(req, res, next) {
+  Transaction.create(req.body, function(err, transaction) {
+    if (err) {
+      return next(err);
+    }
+    
+    User.findById(req.body.user._id, function(err, user) {
+      if (err) {
+        return next(err);
+      }
+
+      var _books = user.books.filter(function( obj ) {
+          return obj._id != req.body.book._id;
+      });
+
+      user.books = _books;
+
+      user.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+      });
+    });
+    Book.findById(req.body.book._id, function(err, book) {
+      if (err) {
+        return next(err);
+      }
+
+      book.noOfAvailableBooks = book.noOfAvailableBooks + 1;
+
+      book.save(function(err) {
+        if (err) {
+          return next(err);
+        }
+      });
+    });
+    return res.status(201).json(transaction);
+  });
+};
