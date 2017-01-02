@@ -51,9 +51,9 @@
         controllerAs: 'vm'
     });
     $stateProvider.state('dashboard.issueBook', {
-        url: '/user/add',
-        templateUrl: 'app/manageUser/addUser/addUser.tpl.html',
-        controller: 'addUserController',
+        url: '/book/issue',
+        templateUrl: 'app/manageBooks/issueBook/issueBook.tpl.html',
+        controller: 'issueBookController',
         controllerAs: 'vm'
     });
     $stateProvider.state('dashboard.returnBook', {

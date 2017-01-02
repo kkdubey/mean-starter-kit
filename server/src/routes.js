@@ -19,6 +19,7 @@ router.post('/api/auth/register', user.post);
 router.put('/api/users/:id', user.put);
 router.post('/api/auth/login', user.getByEmailAndPassword);
 router.post('/api/auth/isuserexit', user.getByEmail);
+router.get('/api/getNormalUsers', user.getNormalUsers);
 
 // things books
 router.get('/api/books', book.find);

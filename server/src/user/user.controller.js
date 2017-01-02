@@ -1,32 +1,32 @@
 'use strict';
 
-var Thing = require('./user.model');
+var User = require('./user.model');
 
 /**
- * GET /things
+ * GET /Users
  *
  * @description
- * list of things
+ * list of Users
  *
  */
 exports.find = function(req, res, next) {
-  Thing.find(function(err, things) {
+  User.find(function(err, users) {
     if (err) {
       return next(err);
     }
-    return res.status(200).json(things);
+    return res.status(200).json(users);
   });
 };
 
 /**
- * GET /things/:id
+ * GET /Users/:id
  *
  * @description
- * Find thing by id
+ * Find User by id
  *
  */
 exports.get = function(req, res, next) {
-  Thing.findById(req.params.id, function(err, thing) {
+  User.findById(req.params.id, function(err, thing) {
     if (err) {
       return next(err);
     }
@@ -38,45 +38,45 @@ exports.get = function(req, res, next) {
 };
 
 /**
- * POST /things
+ * POST /Users
  *
  * @description
- * Create a new thing
+ * Create a new user
  *
  */
 exports.post = function(req, res, next) {
-  Thing.create(req.body, function(err, thing) {
+  User.create(req.body, function(err, user) {
     if (err) {
       return next(err);
     }
-    return res.status(201).json(thing);
+    return res.status(201).json(user);
   });
 };
 
 /**
- * PUT /things/:id
+ * PUT /users/:id
  *
  * @description
- * Update a thing
+ * Update a user
  *
  */
 exports.put = function(req, res, next) {
-  Thing.findById(req.params.id, function(err, thing) {
+  User.findById(req.params.id, function(err, user) {
     if (err) {
       return next(err);
     }
-    if (!thing) {
+    if (!user) {
       return res.status(404).send('Not Found');
     }
 
-    thing.name = req.body.name;
-    thing.description = req.body.description;
+    user.name = req.body.name;
+    user.description = req.body.description;
 
-    thing.save(function(err) {
+    user.save(function(err) {
       if (err) {
         return next(err);
       }
-      return res.status(200).json(thing);
+      return res.status(200).json(user);
     });
   });
 };
@@ -89,7 +89,7 @@ exports.put = function(req, res, next) {
  *
  */
 exports.getByEmailAndPassword = function(req, res, next) {
-  Thing.find({email: req.body.email, password: req.body.password}, function(err, user) {
+  User.find({email: req.body.email, password: req.body.password}, function(err, user) {
     if (err) {
       return next(err);
     }
@@ -103,11 +103,11 @@ exports.getByEmailAndPassword = function(req, res, next) {
  * GET /user/:email
  *
  * @description
- * Find thing by email
+ * Find user by email
  *
  */
 exports.getByEmail = function(req, res, next) {
-  Thing.find({ email: req.body.email }, function(err, user) {
+  User.find({ email: req.body.email }, function(err, user) {
     if (err) {
       return next(err);
     }
@@ -115,5 +115,26 @@ exports.getByEmail = function(req, res, next) {
       return res.status(404).send('Not Found');
     }
     return res.status(200).json(user[0]);
+  });
+};
+
+/**
+ * GET /users/:STANDARD
+ *
+ * @description
+ * Find users: STANDARD
+ *
+ */
+exports.getNormalUsers = function(req, res, next) {
+  console.log(req);
+  User.find({ userType: "STANDARD" }, function(err, users) {
+    console.log(err, users);
+    if (err) {
+      return next(err);
+    }
+    if (!users|| users.length == 0) {
+      return res.status(404).send('Not Found');
+    }
+    return res.status(200).json(users);
   });
 };
