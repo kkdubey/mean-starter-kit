@@ -7,7 +7,6 @@ var thing = require('./thing/thing.controller');
 var user = require('./user/user.controller');
 var book = require('./book/book.controller');
 var transaction = require('./manageBook/transaction.controller');
-var transactionHistory = require('./manageBook/transactionHistory.controller');
 
 // things ressources
 router.get('/api/things', thing.find);

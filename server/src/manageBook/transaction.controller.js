@@ -147,7 +147,7 @@ exports.returnBook = function(req, res, next) {
  */
 exports.getTransactionByTransactionType = function(req, res, next) {
   console.log(req);
-  Transaction.find({ transactionType: req.params.transactionType }, function(err, transactions) {
+  Transaction.find({ transactionType: req.query.type }, function(err, transactions) {
     if (err) {
       return next(err);
     }
