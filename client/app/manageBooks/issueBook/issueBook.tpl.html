@@ -34,6 +34,12 @@
                     </select>
                 </div>
             </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="form-group">
+                    <label for="dueDate">Due Date</label>
+                    <input type="date" name="dueDate" id="dueDate" tabindex="2" data-ng-model="vm.issueBook.dueDate" class="form-control" placeholder="Due Date of Book" value="" autocomplete="off">
+                </div>
+            </div>
             <div class="col-lg-6 col-lg-offset-3">
                 <input type="button" name="register-submit" id="register-submit" data-ng-click="vm.addBook()" tabindex="11" class="form-control btn btn-success" value="Add">
             </div>

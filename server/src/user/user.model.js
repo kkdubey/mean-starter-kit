@@ -25,6 +25,9 @@ var UserSchema = new Schema({
         type: String,
         required: true,
     },
+    books: {
+        type: Schema.Types.Mixed
+    }
 });
 
 module.exports = mongoose.model('User', UserSchema);

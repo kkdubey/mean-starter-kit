@@ -6,6 +6,7 @@ var router = express.Router();
 var thing = require('./thing/thing.controller');
 var user = require('./user/user.controller');
 var book = require('./book/book.controller');
+var transaction = require('./manageBook/transaction.controller');
 
 // things ressources
 router.get('/api/things', thing.find);
@@ -26,5 +27,10 @@ router.get('/api/books', book.find);
 router.get('/api/books/:id', book.get);
 router.post('/api/books', book.post);
 router.put('/api/books/:id', book.put);
+
+// things transaction
+router.get('/api/transactions', transaction.find);
+router.get('/api/transactions/:id', transaction.get);
+router.post('/api/transactions', transaction.post);
 
 module.exports = router;
