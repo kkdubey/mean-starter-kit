@@ -8,7 +8,7 @@
 			};
 
 		function _getTransactionsByType(transactionType) {
-			var url = '/api/users/' + transactionType,
+			var url = '/api/getTransactionByTransactionType?type=' + transactionType,
 			config = { headers: {} };
 			return apiHelper.get(url, config);
 		}

@@ -62,6 +62,18 @@
         controller: 'returnBookController',
         controllerAs: 'vm'
     });
+    $stateProvider.state('dashboard.borrowBookHistory', {
+        url: '/book/borrowBookHistory',
+        templateUrl: 'app/transactionHistory/borrowedBookList/borrowedBookList.tpl.html',
+        controller: 'borrowedBookListController',
+        controllerAs: 'vm'
+    });
+    $stateProvider.state('dashboard.returnBookHistory', {
+        url: '/book/returnBookHistory',
+        templateUrl: 'app/transactionHistory/returnedBookList/returnedBookList.tpl.html',
+        controller: 'returnedBookListController',
+        controllerAs: 'vm'
+    });
     $urlRouterProvider.otherwise('/auth');
   }
 })();
