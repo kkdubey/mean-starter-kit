@@ -27,6 +27,7 @@ router.get('/api/books', book.find);
 router.get('/api/books/:id', book.get);
 router.post('/api/books', book.post);
 router.put('/api/deleteBook/:id', book.deleteBook);
+router.get('/api/getAllActiveBooks', book.getAllActiveBooks);
 
 // things transaction
 router.get('/api/transactions', transaction.find);

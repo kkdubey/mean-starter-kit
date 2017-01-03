@@ -86,7 +86,7 @@
 				var allPromises = {};
 
                 allPromises['getUsersPromise'] = issueBookService.getNormalUsers();
-                allPromises['getBooksPromise'] = bookListService.getAllBooks();
+                allPromises['getBooksPromise'] = bookListService.getAllActiveBooks();
 
 				$q.all(allPromises).then(function (response) {
                     vm.users = response.getUsersPromise ? response.getUsersPromise : [];

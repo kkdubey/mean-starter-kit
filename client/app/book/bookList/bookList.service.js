@@ -6,6 +6,7 @@
 			return {
 				getAllBooks: _getAllBooks,
 				deleteBook: _deleteBook,
+				getAllActiveBooks: _getAllActiveBooks
 				};
 				
 		function _getAllBooks(user) {
@@ -13,6 +14,11 @@
 			config = { headers: {} },
 			postdata = user;
 			return apiHelper.get(url, postdata, config);
+		}	
+		function _getAllActiveBooks() {
+			var url = '/api/getAllActiveBooks',
+			config = { headers: {} }
+			return apiHelper.get(url, config);
 		}	
 
 		function _deleteBook(bookId) {

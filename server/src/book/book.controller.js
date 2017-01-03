@@ -80,3 +80,18 @@ exports.deleteBook = function(req, res, next) {
   });
 };
 
+/**
+ * GET /books: Active
+ *
+ * @description
+ * list of active books
+ *
+ */
+exports.getAllActiveBooks = function(req, res, next) {
+  Book.find({isDeleted: false}, function(err, books) {
+    if (err) {
+      return next(err);
+    }
+    return res.status(200).json(books);
+  });
+};
