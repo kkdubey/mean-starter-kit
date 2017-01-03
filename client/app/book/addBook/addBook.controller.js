@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	function addBookController($rootScope, $scope, $q, $document, $location, focus, addBookService) {
+	function addBookController($rootScope, $scope, $q, $document, $location, $state, focus, addBookService, $timeout) {
 		var vm = this,
         _errors = [],
         _book = {
@@ -17,9 +17,6 @@
             book: _book
         });
 
-		/* lookup members */
-		angular.extend(vm, {});
-
 		/* functions */
 		angular.extend(vm, {
             addBook: function() {
@@ -31,7 +28,9 @@
 						if (response != undefined)  {
 							vm.showSuccess = true;
 							vm.successMsg = "User added successfuly."
-							//$location.path("/#/dashboard/user/list");
+							$timeout(function() {
+								$state.go('dashboard.bookList');
+							}, 1000);
 						}
 					}, function (error) {
 						debugger;
@@ -79,6 +78,6 @@
 			vm.activate();
 		});
 	}
-	addBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', 'focus', 'addBookService'];
+	addBookController.$inject = ['$rootScope', '$scope', '$q', '$document', '$location', '$state', 'focus', 'addBookService', '$timeout'];
 	angular.module('app').controller('addBookController', addBookController);
 })();

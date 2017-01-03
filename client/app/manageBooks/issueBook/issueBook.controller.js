@@ -36,7 +36,9 @@
 						if (response != undefined)  {
 							vm.showSuccess = true;
 							vm.successMsg = "Book issued successfuly."
-							//$location.path("/#/dashboard/user/list");
+							$timeout(function() {
+								$state.go('dashboard.borrowBookHistory');
+							}, 1000);
 						}
 					}, function (error) {
 						debugger;

@@ -49,7 +49,9 @@
 						if (response != undefined)  {
 							vm.showSuccess = true;
 							vm.successMsg = "Book returned successfuly."
-							//$location.path("/#/dashboard/user/list");
+							$timeout(function() {
+								$state.go('dashboard.returnBookHistory');
+							}, 1000);
 						}
 					}, function (error) {
 						debugger;
