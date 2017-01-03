@@ -20,6 +20,10 @@ var BookSchema = new Schema({
         type: Number,
         required: true,
     },
+    isDeleted: {
+        type: Boolean,
+        required: true,
+    }
 });
 
 module.exports = mongoose.model('Book', BookSchema);

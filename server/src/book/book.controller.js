@@ -45,7 +45,6 @@ exports.get = function(req, res, next) {
  *
  */
 exports.post = function(req, res, next) {
-  console.log(req.body);
   Book.create(req.body, function(err, book) {
     if (err) {
       return next(err);
@@ -55,13 +54,13 @@ exports.post = function(req, res, next) {
 };
 
 /**
- * PUT /books/:id
+ * PUT /books/delete:id
  *
  * @description
- * Update a book
+ * Delete a book by id
  *
  */
-exports.put = function(req, res, next) {
+exports.deleteBook = function(req, res, next) {
   Book.findById(req.params.id, function(err, book) {
     if (err) {
       return next(err);
@@ -70,8 +69,7 @@ exports.put = function(req, res, next) {
       return res.status(404).send('Not Found');
     }
 
-    book.name = req.body.name;
-    book.description = req.body.description;
+    book.isDeleted = true;
 
     book.save(function(err) {
       if (err) {

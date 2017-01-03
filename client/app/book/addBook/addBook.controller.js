@@ -26,6 +26,7 @@
                 vm.validateBook();
                 if(vm.Errors.length == 0) {
 					vm.book.noOfAvailableBooks = vm.book.noOfTotalBooks;
+					vm.book.isDeleted = false;
                     addBookService.addBook(vm.book).then(function (response) {
 						if (response != undefined)  {
 							vm.showSuccess = true;

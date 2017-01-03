@@ -26,7 +26,7 @@ router.get('/api/getNormalUsers', user.getNormalUsers);
 router.get('/api/books', book.find);
 router.get('/api/books/:id', book.get);
 router.post('/api/books', book.post);
-router.put('/api/books/:id', book.put);
+router.put('/api/deleteBook/:id', book.deleteBook);
 
 // things transaction
 router.get('/api/transactions', transaction.find);

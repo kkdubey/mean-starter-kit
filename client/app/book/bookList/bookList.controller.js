@@ -10,7 +10,9 @@
 				{ field: 'name' },
 				{ field: 'author' },
 				{ field: 'noOfTotalBooks' },
-				{ field: 'noOfAvailableBooks' }
+				{ field: 'noOfAvailableBooks' },
+				{ field: 'isDeleted', name: 'isDeleted', cellTemplate: '<span>{{grid.appScope.vm.isDeleted(row.entity)}}</span>'},
+				{ name: 'Action', field: 'Action', cellTemplate: '<a data-ng-click="grid.appScope.vm.deleteBook(row.entity)">{{grid.appScope.vm.getDeleteButtonText(row.entity)}}</a>' }
 			],
 			onRegisterApi: function( gridApi ) {
 				vm.grid1Api = gridApi;
@@ -30,11 +32,30 @@
 			bookGridOptions: _bookGridOptions
         });
 
-		/* lookup members */
-		angular.extend(vm, {});
-
 		/* functions */
 		angular.extend(vm, {
+			isDeleted: function(row) {
+				if (row.isDeleted) {
+					return "Yes"
+				} else {
+					return "No";
+				}
+			},
+			getDeleteButtonText: function(row) {
+				if (!row.isDeleted) {
+					return "Delete"
+				} else {
+					return "Already deleted";
+				}
+			},
+			deleteBook: function(row) {
+				console.log(row);
+				if(!row.isDeleted) {
+					bookListService.deleteBook(row._id).then(function(response){
+						console.log(response);
+					});
+				}
+			},
 			preInit: function () {
                 if (Storage != undefined && sessionStorage != undefined) {
                     vm.user = JSON.parse(sessionStorage.getItem('logedInUser'));
